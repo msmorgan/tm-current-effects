@@ -6,6 +6,7 @@ For Maniaplanet, this will display all available effects, but can't yet distingu
 Showcase (older version): https://youtu.be/0rzvJQJC8gc
 
 ## Currently working:
+- Cruise Control
 - Engine Off (Free Wheeling in MP4)
 - Forced Acceleration (Fullspeed Ahead in MP4)
 - No Brakes
@@ -20,12 +21,11 @@ Showcase (older version): https://youtu.be/0rzvJQJC8gc
 ## Partially working:
 - Viewing replays (most effects unsupported)
 - Spectating (some effects unsupported)
-- Cruise Control (experimental)
+- Acceleration penalty (very experimental)
 - Fragile (experimental, breaks in some instances (no pun intended))
-- Snow Car (experimental, barely tested)
+- Snow Car (experimental)
 
 ## Not working/not implemented:
-- Acceleration penalty
 - Reactor Boost (full 6-second timer - the only reason I started this)
 - Slow-Mo (timer)
 - More settings (colors, etc.)

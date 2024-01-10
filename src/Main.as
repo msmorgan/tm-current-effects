@@ -1,15 +1,22 @@
 // c 2023-05-04
-// m 2024-01-05
+// m 2024-01-10
 
 bool   alwaysSnow    = false;  // to change when starting as CarSnow is no longer broken
-string loginLocal    = GetLocalLogin();
+string loginLocal;
 bool   replay;
 bool   spectating;
+string title         = "\\$F00" + Icons::React + "\\$G Current Effects";
+string titleDev      = "\\$F00" + Icons::Bug + "\\$G Current Effects (Developer)";
 uint   totalRespawns = 0;
 
 void RenderMenu() {
-    if (UI::MenuItem("\\$F00" + Icons::React + "\\$G Current Effects", "", S_Enabled))
+    if (UI::MenuItem(title, "", S_Enabled))
         S_Enabled = !S_Enabled;
+
+#if SIG_DEVELOPER && TMNEXT
+    if (S_MenuDev && UI::MenuItem(titleDev, "", S_Dev))
+        S_Dev = !S_Dev;
+#endif
 }
 
 #if TMNEXT
@@ -21,6 +28,10 @@ void Main() {
     startnew(CacheLocalLogin);
     ChangeFont();
     SetColors();
+
+#if SIG_DEVELOPER && TMNEXT
+    InitDevNext();
+#endif
 
 #if TMNEXT
     Intercept();
@@ -39,6 +50,10 @@ void OnSettingsChanged() {
 }
 
 void Render() {
+#if SIG_DEVELOPER && TMNEXT
+    RenderDevNext();
+#endif
+
     if (
         !S_Enabled ||
         font is null ||

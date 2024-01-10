@@ -1,5 +1,5 @@
 // c 2023-06-10
-// m 2024-01-05
+// m 2024-01-09
 
 [Setting category="General" name="Enabled"]
 bool S_Enabled = true;
@@ -186,5 +186,14 @@ string turbo5Color;
 [Setting category="Colors" name="Turbo" color]
 vec3 S_TurboColor = vec3(0.0f, 1.0f, 0.0f);
 string turboColor;
+
+#endif
+#if SIG_DEVELOPER && TMNEXT
+
+[Setting category="Dev" name="Show dev window"]
+bool S_Dev = false;
+
+[Setting category="Dev" name="Show dev window toggle in menu"]
+bool S_MenuDev = false;
 
 #endif

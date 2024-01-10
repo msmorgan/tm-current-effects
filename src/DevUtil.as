@@ -15,15 +15,15 @@ string Round(int num) {
     return (num == 0 ? WHITE : num < 0 ? RED : GREEN) + Math::Abs(num);
 }
 
-string Round(float num, uint precision = 3) {
+string Round(float num, uint precision = S_Precision) {
     return (num == 0 ? WHITE : num < 0 ? RED : GREEN) + Text::Format("%." + precision + "f", Math::Abs(num));
 }
 
-string Round(vec3 vec, uint precision = 3) {
+string Round(vec3 vec, uint precision = S_Precision) {
     return Round(vec.x, precision) + " , " + Round(vec.y, precision) + " , " + Round(vec.z, precision);
 }
 
-string Round(iso4 iso, uint precision = 3) {
+string Round(iso4 iso, uint precision = S_Precision) {
     string ret;
 
     ret += Round(iso.tx, precision) + " , " + Round(iso.ty, precision) + " , " + Round(iso.tz, precision) + "\n";

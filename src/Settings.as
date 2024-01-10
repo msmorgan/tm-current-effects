@@ -1,5 +1,5 @@
 // c 2023-06-10
-// m 2024-01-09
+// m 2024-01-10
 
 [Setting category="General" name="Enabled"]
 bool S_Enabled = true;
@@ -195,5 +195,8 @@ bool S_Dev = false;
 
 [Setting category="Dev" name="Show dev window toggle in menu"]
 bool S_MenuDev = false;
+
+[Setting category="Dev" name="Float precision" min=0 max=9]
+uint S_Precision = 3;
 
 #endif

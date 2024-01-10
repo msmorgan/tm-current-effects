@@ -16,7 +16,7 @@ const int[] observedVisOffets = {
 
 // game versions for which the offsets in this file are valid
 const string[] validGameVersions = {
-    "2023-12-21_23_50"  // released 2024-01-09
+    "2024-01-10_12_53"  // released 2024-01-10
 };
 
 void InitDevNext() {
@@ -109,85 +109,85 @@ void RenderVisApiValues(CSceneVehicleVis@ Vis) {
     UI::Text("Most values are from CSceneVehicleVisState, which is inside CSceneVehicleVis.");
 
     string[][] valuePairs;
-    valuePairs.InsertLast({"AirBrakeNormed",          Round(    Vis.AsyncState.AirBrakeNormed)});
-    valuePairs.InsertLast({"BulletTimeNormed",        Round(    Vis.AsyncState.BulletTimeNormed)});
-    valuePairs.InsertLast({"EngineOn",                Round(    Vis.AsyncState.EngineOn)});
-    // valuePairs.InsertLast({"CamGrpStates",            tostring( Vis.AsyncState.CamGrpStates)});
-    valuePairs.InsertLast({"CamGrpStates",            "unknown new type"});
-    valuePairs.InsertLast({"CurGear",                 RoundUint(Vis.AsyncState.CurGear)});
-    valuePairs.InsertLast({"Dir",                     Round(    Vis.AsyncState.Dir)});
-    valuePairs.InsertLast({"DiscontinuityCount",      RoundUint(Vis.AsyncState.DiscontinuityCount)});
-    valuePairs.InsertLast({"FLBreakNormedCoef",       Round(    Vis.AsyncState.FLBreakNormedCoef)});
-    valuePairs.InsertLast({"FLDamperLen",             Round(    Vis.AsyncState.FLDamperLen)});
-    valuePairs.InsertLast({"FLGroundContactMaterial", tostring( Vis.AsyncState.FLGroundContactMaterial)});
-    valuePairs.InsertLast({"FLIcing01",               Round(    Vis.AsyncState.FLIcing01)});
-    valuePairs.InsertLast({"FLSlipCoef",              Round(    Vis.AsyncState.FLSlipCoef)});
-    valuePairs.InsertLast({"FLSteerAngle",            Round(    Vis.AsyncState.FLSteerAngle)});
-    valuePairs.InsertLast({"FLTireWear01",            Round(    Vis.AsyncState.FLTireWear01)});
-    valuePairs.InsertLast({"FLWheelRot",              Round(    Vis.AsyncState.FLWheelRot)});
-    valuePairs.InsertLast({"FLWheelRotSpeed",         Round(    Vis.AsyncState.FLWheelRotSpeed)});
-    valuePairs.InsertLast({"FRBreakNormedCoef",       Round(    Vis.AsyncState.FRBreakNormedCoef)});
-    valuePairs.InsertLast({"FRDamperLen",             Round(    Vis.AsyncState.FRDamperLen)});
-    valuePairs.InsertLast({"FRGroundContactMaterial", tostring( Vis.AsyncState.FRGroundContactMaterial)});
-    valuePairs.InsertLast({"FRIcing01",               Round(    Vis.AsyncState.FRIcing01)});
-    valuePairs.InsertLast({"FRSlipCoef",              Round(    Vis.AsyncState.FRSlipCoef)});
-    valuePairs.InsertLast({"FRSteerAngle",            Round(    Vis.AsyncState.FRSteerAngle)});
-    valuePairs.InsertLast({"FrontSpeed",              Round(    Vis.AsyncState.FrontSpeed)});
-    valuePairs.InsertLast({"FRTireWear01",            Round(    Vis.AsyncState.FRTireWear01)});
-    valuePairs.InsertLast({"FRWheelRot",              Round(    Vis.AsyncState.FRWheelRot)});
-    valuePairs.InsertLast({"FRWheelRotSpeed",         Round(    Vis.AsyncState.FRWheelRotSpeed)});
-    valuePairs.InsertLast({"GroundDist",              Round(    Vis.AsyncState.GroundDist)});
-    valuePairs.InsertLast({"InputBrakePedal",         Round(    Vis.AsyncState.InputBrakePedal)});
-    valuePairs.InsertLast({"InputGasPedal",           Round(    Vis.AsyncState.InputGasPedal)});
-    valuePairs.InsertLast({"InputIsBraking",          Round(    Vis.AsyncState.InputIsBraking)});
-    valuePairs.InsertLast({"InputSteer",              Round(    Vis.AsyncState.InputSteer)});
-    valuePairs.InsertLast({"InputVertical",           Round(    Vis.AsyncState.InputVertical)});
-    valuePairs.InsertLast({"IsGroundContact",         Round(    Vis.AsyncState.IsGroundContact)});
-    valuePairs.InsertLast({"IsReactorGroundMode",     Round(    Vis.AsyncState.IsReactorGroundMode)});
-    valuePairs.InsertLast({"IsTopContact",            Round(    Vis.AsyncState.IsTopContact)});
-    valuePairs.InsertLast({"IsTurbo",                 Round(    Vis.AsyncState.IsTurbo)});
-    valuePairs.InsertLast({"IsWheelsBurning",         Round(    Vis.AsyncState.IsWheelsBurning)});
-    valuePairs.InsertLast({"Left",                    Round(    Vis.AsyncState.Left)});
-    valuePairs.InsertLast({"Position",                Round(    Vis.AsyncState.Position)});
-    valuePairs.InsertLast({"RaceStartTime",           RoundUint(Vis.AsyncState.RaceStartTime)});
-    valuePairs.InsertLast({"ReactorAirControl",       Round(    Vis.AsyncState.ReactorAirControl)});
-    valuePairs.InsertLast({"ReactorBoostLvl",         tostring( Vis.AsyncState.ReactorBoostLvl)});
-    valuePairs.InsertLast({"ReactorBoostType",        tostring( Vis.AsyncState.ReactorBoostType)});
-    valuePairs.InsertLast({"ReactorInputsX",          Round(    Vis.AsyncState.ReactorInputsX)});
-    valuePairs.InsertLast({"RLBreakNormedCoef",       Round(    Vis.AsyncState.RLBreakNormedCoef)});
-    valuePairs.InsertLast({"RLDamperLen",             Round(    Vis.AsyncState.RLDamperLen)});
-    valuePairs.InsertLast({"RLGroundContactMaterial", tostring( Vis.AsyncState.RLGroundContactMaterial)});
-    valuePairs.InsertLast({"RLIcing01",               Round(    Vis.AsyncState.RLIcing01)});
-    valuePairs.InsertLast({"RLSlipCoef",              Round(    Vis.AsyncState.RLSlipCoef)});
-    valuePairs.InsertLast({"RLSteerAngle",            Round(    Vis.AsyncState.RLSteerAngle)});
-    valuePairs.InsertLast({"RLTireWear01",            Round(    Vis.AsyncState.RLTireWear01)});
-    valuePairs.InsertLast({"RLWheelRot",              Round(    Vis.AsyncState.RLWheelRot)});
-    valuePairs.InsertLast({"RLWheelRotSpeed",         Round(    Vis.AsyncState.RLWheelRotSpeed)});
-    valuePairs.InsertLast({"RRBreakNormedCoef",       Round(    Vis.AsyncState.RRBreakNormedCoef)});
-    valuePairs.InsertLast({"RRDamperLen",             Round(    Vis.AsyncState.RRDamperLen)});
-    valuePairs.InsertLast({"RRGroundContactMaterial", tostring( Vis.AsyncState.RRGroundContactMaterial)});
-    valuePairs.InsertLast({"RRIcing01",               Round(    Vis.AsyncState.RRIcing01)});
-    valuePairs.InsertLast({"RRSlipCoef",              Round(    Vis.AsyncState.RRSlipCoef)});
-    valuePairs.InsertLast({"RRSteerAngle",            Round(    Vis.AsyncState.RRSteerAngle)});
-    valuePairs.InsertLast({"RRTireWear01",            Round(    Vis.AsyncState.RRTireWear01)});
-    valuePairs.InsertLast({"RRWheelRot",              Round(    Vis.AsyncState.RRWheelRot)});
-    valuePairs.InsertLast({"RRWheelRotSpeed",         Round(    Vis.AsyncState.RRWheelRotSpeed)});
-    valuePairs.InsertLast({"SimulationTimeCoef",      Round(    Vis.AsyncState.SimulationTimeCoef)});
-    valuePairs.InsertLast({"SpoilerOpenNormed",       Round(    Vis.AsyncState.SpoilerOpenNormed)});
-    valuePairs.InsertLast({"Turbo",                   Round(    Vis.Turbo)});
-    valuePairs.InsertLast({"TurboTime",               Round(    Vis.AsyncState.TurboTime)});
-    valuePairs.InsertLast({"Up",                      Round(    Vis.AsyncState.Up)});
-    valuePairs.InsertLast({"WaterImmersionCoef",      Round(    Vis.AsyncState.WaterImmersionCoef)});
-    valuePairs.InsertLast({"WaterOverDistNormed",     Round(    Vis.AsyncState.WaterOverDistNormed)});
-    valuePairs.InsertLast({"WaterOverSurfacePos",     Round(    Vis.AsyncState.WaterOverSurfacePos)});
-    valuePairs.InsertLast({"WetnessValue01",          Round(    Vis.AsyncState.WetnessValue01)});
-    valuePairs.InsertLast({"WingsOpenNormed",         Round(    Vis.AsyncState.WingsOpenNormed)});
-    valuePairs.InsertLast({"WorldCarUp",              Round(    Vis.AsyncState.WorldCarUp)});
-    valuePairs.InsertLast({"WorldVel",                Round(    Vis.AsyncState.WorldVel)});
+    valuePairs.InsertLast({"AirBrakeNormed",          "float",   Round(    Vis.AsyncState.AirBrakeNormed)});
+    valuePairs.InsertLast({"BulletTimeNormed",        "float",   Round(    Vis.AsyncState.BulletTimeNormed)});
+    valuePairs.InsertLast({"EngineOn",                "bool",    Round(    Vis.AsyncState.EngineOn)});
+    valuePairs.InsertLast({"CamGrpStates",            "unknown", "unknown new type"});
+    valuePairs.InsertLast({"CurGear",                 "uint",    RoundUint(Vis.AsyncState.CurGear)});
+    valuePairs.InsertLast({"Dir",                     "vec3",    Round(    Vis.AsyncState.Dir)});
+    valuePairs.InsertLast({"DiscontinuityCount",      "uint8",   RoundUint(Vis.AsyncState.DiscontinuityCount)});
+    valuePairs.InsertLast({"FLBreakNormedCoef",       "float",   Round(    Vis.AsyncState.FLBreakNormedCoef)});
+    valuePairs.InsertLast({"FLDamperLen",             "float",   Round(    Vis.AsyncState.FLDamperLen)});
+    valuePairs.InsertLast({"FLGroundContactMaterial", "enum",    tostring( Vis.AsyncState.FLGroundContactMaterial)});
+    valuePairs.InsertLast({"FLIcing01",               "float",   Round(    Vis.AsyncState.FLIcing01)});
+    valuePairs.InsertLast({"FLSlipCoef",              "float",   Round(    Vis.AsyncState.FLSlipCoef)});
+    valuePairs.InsertLast({"FLSteerAngle",            "float",   Round(    Vis.AsyncState.FLSteerAngle)});
+    valuePairs.InsertLast({"FLTireWear01",            "float",   Round(    Vis.AsyncState.FLTireWear01)});
+    valuePairs.InsertLast({"FLWheelRot",              "float",   Round(    Vis.AsyncState.FLWheelRot)});
+    valuePairs.InsertLast({"FLWheelRotSpeed",         "float",   Round(    Vis.AsyncState.FLWheelRotSpeed)});
+    valuePairs.InsertLast({"FRBreakNormedCoef",       "float",   Round(    Vis.AsyncState.FRBreakNormedCoef)});
+    valuePairs.InsertLast({"FRDamperLen",             "float",   Round(    Vis.AsyncState.FRDamperLen)});
+    valuePairs.InsertLast({"FRGroundContactMaterial", "enum",    tostring( Vis.AsyncState.FRGroundContactMaterial)});
+    valuePairs.InsertLast({"FRIcing01",               "float",   Round(    Vis.AsyncState.FRIcing01)});
+    valuePairs.InsertLast({"FRSlipCoef",              "float",   Round(    Vis.AsyncState.FRSlipCoef)});
+    valuePairs.InsertLast({"FRSteerAngle",            "float",   Round(    Vis.AsyncState.FRSteerAngle)});
+    valuePairs.InsertLast({"FrontSpeed",              "float",   Round(    Vis.AsyncState.FrontSpeed)});
+    valuePairs.InsertLast({"FRTireWear01",            "float",   Round(    Vis.AsyncState.FRTireWear01)});
+    valuePairs.InsertLast({"FRWheelRot",              "float",   Round(    Vis.AsyncState.FRWheelRot)});
+    valuePairs.InsertLast({"FRWheelRotSpeed",         "float",   Round(    Vis.AsyncState.FRWheelRotSpeed)});
+    valuePairs.InsertLast({"GroundDist",              "float",   Round(    Vis.AsyncState.GroundDist)});
+    valuePairs.InsertLast({"InputBrakePedal",         "float",   Round(    Vis.AsyncState.InputBrakePedal)});
+    valuePairs.InsertLast({"InputGasPedal",           "float",   Round(    Vis.AsyncState.InputGasPedal)});
+    valuePairs.InsertLast({"InputIsBraking",          "bool",    Round(    Vis.AsyncState.InputIsBraking)});
+    valuePairs.InsertLast({"InputSteer",              "float",   Round(    Vis.AsyncState.InputSteer)});
+    valuePairs.InsertLast({"InputVertical",           "float",   Round(    Vis.AsyncState.InputVertical)});
+    valuePairs.InsertLast({"IsGroundContact",         "bool",    Round(    Vis.AsyncState.IsGroundContact)});
+    valuePairs.InsertLast({"IsReactorGroundMode",     "bool",    Round(    Vis.AsyncState.IsReactorGroundMode)});
+    valuePairs.InsertLast({"IsTopContact",            "bool",    Round(    Vis.AsyncState.IsTopContact)});
+    valuePairs.InsertLast({"IsTurbo",                 "bool",    Round(    Vis.AsyncState.IsTurbo)});
+    valuePairs.InsertLast({"IsWheelsBurning",         "bool",    Round(    Vis.AsyncState.IsWheelsBurning)});
+    valuePairs.InsertLast({"Left",                    "vec3",    Round(    Vis.AsyncState.Left)});
+    valuePairs.InsertLast({"Position",                "vec3",    Round(    Vis.AsyncState.Position)});
+    valuePairs.InsertLast({"RaceStartTime",           "uint",    RoundUint(Vis.AsyncState.RaceStartTime)});
+    valuePairs.InsertLast({"ReactorAirControl",       "vec3",    Round(    Vis.AsyncState.ReactorAirControl)});
+    valuePairs.InsertLast({"ReactorBoostLvl",         "enum",    tostring( Vis.AsyncState.ReactorBoostLvl)});
+    valuePairs.InsertLast({"ReactorBoostType",        "enum",    tostring( Vis.AsyncState.ReactorBoostType)});
+    valuePairs.InsertLast({"ReactorInputsX",          "bool",    Round(    Vis.AsyncState.ReactorInputsX)});
+    valuePairs.InsertLast({"RLBreakNormedCoef",       "float",   Round(    Vis.AsyncState.RLBreakNormedCoef)});
+    valuePairs.InsertLast({"RLDamperLen",             "float",   Round(    Vis.AsyncState.RLDamperLen)});
+    valuePairs.InsertLast({"RLGroundContactMaterial", "enum",    tostring( Vis.AsyncState.RLGroundContactMaterial)});
+    valuePairs.InsertLast({"RLIcing01",               "float",   Round(    Vis.AsyncState.RLIcing01)});
+    valuePairs.InsertLast({"RLSlipCoef",              "float",   Round(    Vis.AsyncState.RLSlipCoef)});
+    valuePairs.InsertLast({"RLSteerAngle",            "float",   Round(    Vis.AsyncState.RLSteerAngle)});
+    valuePairs.InsertLast({"RLTireWear01",            "float",   Round(    Vis.AsyncState.RLTireWear01)});
+    valuePairs.InsertLast({"RLWheelRot",              "float",   Round(    Vis.AsyncState.RLWheelRot)});
+    valuePairs.InsertLast({"RLWheelRotSpeed",         "float",   Round(    Vis.AsyncState.RLWheelRotSpeed)});
+    valuePairs.InsertLast({"RRBreakNormedCoef",       "float",   Round(    Vis.AsyncState.RRBreakNormedCoef)});
+    valuePairs.InsertLast({"RRDamperLen",             "float",   Round(    Vis.AsyncState.RRDamperLen)});
+    valuePairs.InsertLast({"RRGroundContactMaterial", "enum",    tostring( Vis.AsyncState.RRGroundContactMaterial)});
+    valuePairs.InsertLast({"RRIcing01",               "float",   Round(    Vis.AsyncState.RRIcing01)});
+    valuePairs.InsertLast({"RRSlipCoef",              "float",   Round(    Vis.AsyncState.RRSlipCoef)});
+    valuePairs.InsertLast({"RRSteerAngle",            "float",   Round(    Vis.AsyncState.RRSteerAngle)});
+    valuePairs.InsertLast({"RRTireWear01",            "float",   Round(    Vis.AsyncState.RRTireWear01)});
+    valuePairs.InsertLast({"RRWheelRot",              "float",   Round(    Vis.AsyncState.RRWheelRot)});
+    valuePairs.InsertLast({"RRWheelRotSpeed",         "float",   Round(    Vis.AsyncState.RRWheelRotSpeed)});
+    valuePairs.InsertLast({"SimulationTimeCoef",      "float",   Round(    Vis.AsyncState.SimulationTimeCoef)});
+    valuePairs.InsertLast({"SpoilerOpenNormed",       "float",   Round(    Vis.AsyncState.SpoilerOpenNormed)});
+    valuePairs.InsertLast({"Turbo",                   "float",   Round(    Vis.Turbo)});
+    valuePairs.InsertLast({"TurboTime",               "float",   Round(    Vis.AsyncState.TurboTime)});
+    valuePairs.InsertLast({"Up",                      "vec3",    Round(    Vis.AsyncState.Up)});
+    valuePairs.InsertLast({"WaterImmersionCoef",      "float",   Round(    Vis.AsyncState.WaterImmersionCoef)});
+    valuePairs.InsertLast({"WaterOverDistNormed",     "float",   Round(    Vis.AsyncState.WaterOverDistNormed)});
+    valuePairs.InsertLast({"WaterOverSurfacePos",     "vec3",    Round(    Vis.AsyncState.WaterOverSurfacePos)});
+    valuePairs.InsertLast({"WetnessValue01",          "float",   Round(    Vis.AsyncState.WetnessValue01)});
+    valuePairs.InsertLast({"WingsOpenNormed",         "float",   Round(    Vis.AsyncState.WingsOpenNormed)});
+    valuePairs.InsertLast({"WorldCarUp",              "vec3",    Round(    Vis.AsyncState.WorldCarUp)});
+    valuePairs.InsertLast({"WorldVel",                "vec3",    Round(    Vis.AsyncState.WorldVel)});
 
-    if (UI::BeginTable("##api-val-table", 2, UI::TableFlags::ScrollY)) {
+    if (UI::BeginTable("##api-val-table", 3, UI::TableFlags::ScrollY)) {
         UI::TableSetupScrollFreeze(0, 1);
         UI::TableSetupColumn("Variable");
+        UI::TableSetupColumn("Type");
         UI::TableSetupColumn("Value");
         UI::TableHeadersRow();
 
@@ -197,6 +197,7 @@ void RenderVisApiValues(CSceneVehicleVis@ Vis) {
                 UI::TableNextRow();
                 UI::TableNextColumn(); UI::Text(valuePairs[i][0]);
                 UI::TableNextColumn(); UI::Text(valuePairs[i][1]);
+                UI::TableNextColumn(); UI::Text(valuePairs[i][2]);
             }
         }
 

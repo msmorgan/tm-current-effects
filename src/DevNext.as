@@ -76,8 +76,8 @@ void Tab_Vis() {
                 UI::BeginTabBar("##vis-tabs-single");
 
                     if (UI::BeginTabItem("API Values")) {
-                        RenderVisApiValues(Vis);
-                        UI::Text("error: " + getExceptionInfo());
+                        try   { RenderVisApiValues(Vis); }
+                        catch { UI::Text("error: " + getExceptionInfo()); }
 
                         UI::EndTabItem();
                     }

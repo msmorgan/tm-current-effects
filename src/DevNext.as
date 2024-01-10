@@ -5,6 +5,10 @@
 
 string version;
 
+const string GREEN = "\\$0D2";
+const string RED   = "\\$F00";
+const string WHITE = "\\$FFF";
+
 // offsets for which a value is known
 int[] knownVisoffets = {
 };
@@ -111,10 +115,6 @@ void RenderVisOffsets(CSceneVehicleVis@ Vis) {
 void RenderVisValues(CSceneVehicleVis@ Vis) {
     ;
 }
-
-const string GREEN  = "\\$0D2";
-const string RED    = "\\$F00";
-const string WHITE  = "\\$FFF";
 
 string Round(bool b) {
     return (b ? GREEN : RED) + b;

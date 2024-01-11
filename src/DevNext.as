@@ -9,12 +9,12 @@ string version;
 
 // offsets for which a value is known
 const int[] knownStateOffsets = {
-    80, 84, 88, 92, 96, 100, 116, 120,
-    172, 176, 188, 192, 196, 200, 204,  // FL
-    216, 220, 232, 236, 240, 244, 248,  // FR
-    260, 264, 276, 280, 284, 288, 292,  // RR
-    304, 308, 320, 324, 328, 332, 336,  // RL
-    372, 376, 380, 396, 400, 404, 408, 420, 436
+    16, 20, 24, 32, 80, 84, 88, 92, 96, 100, 116, 120, 128,
+    168, 172, 176, 180, 184, 185, 188, 192, 196, 200, 204, 208,  // FL
+    212, 216, 220, 224, 228, 229, 232, 236, 240, 244, 248, 252,  // FR
+    256, 260, 264, 268, 272, 273, 276, 280, 284, 288, 292, 296,  // RR
+    300, 304, 308, 312, 316, 317, 320, 324, 328, 332, 336, 340,  // RL
+    368, 372, 376, 380, 381, 384, 388, 392, 396, 400, 404, 408, 420, 428, 436
 };
 
 // offsets for which a value is known, but there's uncertainty in exactly what it represents
@@ -227,54 +227,80 @@ void RenderStateOffsetValues(CSceneVehicleVisState@ State) {
     UI::TextWrapped("Variables marked " + YELLOW + "yellow\\$G have been observed but are uncertain.");
 
     string[][] values;
-    values.InsertLast(StateOffsetValue(State, 80,  "Position",          DataType::Vec3));
-    values.InsertLast(StateOffsetValue(State, 92,  "WorldVel",          DataType::Vec3));
-    values.InsertLast(StateOffsetValue(State, 116, "FrontSpeed",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 120, "SideSpeed",         DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 16,  "InputSteer",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 20,  "InputGasPedal",           DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 24,  "InputBrakePedal",         DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 32,  "InputIsBraking",          DataType::Bool));
+    values.InsertLast(StateOffsetValue(State, 80,  "Position",                DataType::Vec3));
+    values.InsertLast(StateOffsetValue(State, 92,  "WorldVel",                DataType::Vec3));
+    values.InsertLast(StateOffsetValue(State, 116, "FrontSpeed",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 120, "SideSpeed",               DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 128, "CruiseDisplaySpeed",      DataType::Int32));
 
-    values.InsertLast(StateOffsetValue(State, 172, "FLWheelRot",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 176, "FLWheelRotSpeed",   DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 188, "FLSlipCoef",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 192, "FLDirt",            DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 196, "FLIcing01",         DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 200, "FLTireWear01",      DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 204, "FLBreakNormedCoef", DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 168, "FLDamperLen",             DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 172, "FLWheelRot",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 176, "FLWheelRotSpeed",         DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 180, "FLSteerAngle",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 184, "FLGroundContactMaterial", DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 185, "FLGroundContactEffect",   DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 188, "FLSlipCoef",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 192, "FLDirt",                  DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 196, "FLIcing01",               DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 200, "FLTireWear01",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 204, "FLBreakNormedCoef",       DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 208, "FLFalling",               DataType::Enum));
 
-    values.InsertLast(StateOffsetValue(State, 216, "FRWheelRot",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 220, "FRWheelRotSpeed",   DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 232, "FRSlipCoef",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 236, "FRDirt",            DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 240, "FRIcing01",         DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 244, "FRTireWear01",      DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 248, "FRBreakNormedCoef", DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 212, "FRDamperLen",             DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 216, "FRWheelRot",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 220, "FRWheelRotSpeed",         DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 224, "FRSteerAngle",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 228, "FRGroundContactMaterial", DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 229, "FRGroundContactEffect",   DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 232, "FRSlipCoef",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 236, "FRDirt",                  DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 240, "FRIcing01",               DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 244, "FRTireWear01",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 248, "FRBreakNormedCoef",       DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 252, "FRFalling",               DataType::Enum));
 
-    values.InsertLast(StateOffsetValue(State, 260, "RRWheelRot",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 264, "RRWheelRotSpeed",   DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 276, "RRSlipCoef",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 280, "RRDirt",            DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 284, "RRIcing01",         DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 288, "RRTireWear01",      DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 292, "RRBreakNormedCoef", DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 256, "RRDamperLen",             DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 260, "RRWheelRot",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 264, "RRWheelRotSpeed",         DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 268, "RRSteerAngle",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 272, "RRGroundContactMaterial", DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 273, "RRGroundContactEffect",   DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 276, "RRSlipCoef",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 280, "RRDirt",                  DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 284, "RRIcing01",               DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 288, "RRTireWear01",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 292, "RRBreakNormedCoef",       DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 296, "RRFalling",               DataType::Enum));
 
-    values.InsertLast(StateOffsetValue(State, 304, "RLWheelRot",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 308, "RLWheelRotSpeed",   DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 320, "RLSlipCoef",        DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 324, "RLDirt",            DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 328, "RLIcing01",         DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 332, "RLTireWear01",      DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 336, "RLBreakNormedCoef", DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 300, "RLDamperLen",             DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 304, "RLWheelRot",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 308, "RLWheelRotSpeed",         DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 312, "RLSteerAngle",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 316, "RLGroundContactMaterial", DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 317, "RLGroundContactEffect",   DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 320, "RLSlipCoef",              DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 324, "RLDirt",                  DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 328, "RLIcing01",               DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 332, "RLTireWear01",            DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 336, "RLBreakNormedCoef",       DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 340, "RLFalling",               DataType::Enum));
 
-    values.InsertLast(StateOffsetValue(State, 372, "ReactorBoostLvl",   DataType::Int32));
-    values.InsertLast(StateOffsetValue(State, 376, "ReactorBoostType",  DataType::Int32));
-    values.InsertLast(StateOffsetValue(State, 380, "ReactorFinalTimer", DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 396, "Up",                DataType::Vec3));
-    values.InsertLast(StateOffsetValue(State, 408, "EngineRPM",         DataType::Float));
-    values.InsertLast(StateOffsetValue(State, 420, "CurGear",           DataType::Uint32));
-    values.InsertLast(StateOffsetValue(State, 436, "RaceStartTime",     DataType::Int32));
+    values.InsertLast(StateOffsetValue(State, 368, "LastTurboLevel",          DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 372, "ReactorBoostLvl",         DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 376, "ReactorBoostType",        DataType::Enum));
+    values.InsertLast(StateOffsetValue(State, 380, "ReactorFinalTimer",       DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 384, "ReactorAirControl",       DataType::Vec3));
+    values.InsertLast(StateOffsetValue(State, 396, "Up",                      DataType::Vec3));
+    values.InsertLast(StateOffsetValue(State, 408, "EngineRPM",               DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 420, "CurGear",                 DataType::Uint32));
+    values.InsertLast(StateOffsetValue(State, 428, "TurboTime",               DataType::Float));
+    values.InsertLast(StateOffsetValue(State, 436, "RaceStartTime",           DataType::Int32));
 
     // values.InsertLast(StateOffsetValue(State, 376, "IsWheelsBurning",   DataType::Bool));
-    // values.InsertLast(StateOffsetValue(State, 416, "InputGasPedal",     DataType::Float));
-    // values.InsertLast(StateOffsetValue(State, 544, "InputIsBraking",    DataType::Float));
     // values.InsertLast(StateOffsetValue(State, 548, "BrakingCoefStrong", DataType::Float, false));
     // values.InsertLast(StateOffsetValue(State, 552, "HasReactor",        DataType::Float));
     // values.InsertLast(StateOffsetValue(State, 556, "Reactor???",        DataType::Float, false));
@@ -316,31 +342,47 @@ void RenderStateOffsetValues(CSceneVehicleVisState@ State) {
 }
 
 string[] StateOffsetValue(CSceneVehicleVisState@ State, int offset, const string &in name, DataType type, bool known = true) {
-    string offsets;
     string value;
 
-    switch (type) {
-        case DataType::Bool:   value = Round(    Dev::GetOffsetInt8  (State, offset) == 1); break;
-        case DataType::Int8:   value = Round(    Dev::GetOffsetInt8  (State, offset));      break;
-        case DataType::Uint8:  value = RoundUint(Dev::GetOffsetUint8 (State, offset));      break;
-        case DataType::Int16:  value = Round(    Dev::GetOffsetInt16 (State, offset));      break;
-        case DataType::Uint16: value = RoundUint(Dev::GetOffsetUint16(State, offset));      break;
-        case DataType::Int32:  value = Round(    Dev::GetOffsetInt32 (State, offset));      break;
-        case DataType::Uint32: value = RoundUint(Dev::GetOffsetUint32(State, offset));      break;
-        case DataType::Int64:  value = Round(    Dev::GetOffsetInt64 (State, offset));      break;
-        case DataType::Uint64: value = RoundUint(Dev::GetOffsetUint64(State, offset));      break;
-        case DataType::Float:  value = Round(    Dev::GetOffsetFloat (State, offset));      break;
-        case DataType::Vec2:   value = Round(    Dev::GetOffsetVec2  (State, offset));      break;
-        case DataType::Vec3:
-            value = Round(Dev::GetOffsetVec3(State, offset));
-            offsets = offset + "," + (offset + 4) + "," + (offset + 8);
-            break;
-        case DataType::Vec4:   value = Round(    Dev::GetOffsetVec4  (State, offset));      break;
-        case DataType::Iso4:   value = Round(    Dev::GetOffsetIso4  (State, offset));      break;
-        default:;
+    if (name == "LastTurboLevel") {
+        int8 num = Dev::GetOffsetInt8(State, offset);
+        value = Round(num) + " " + tostring(VehicleState::TurboLevel(num));
+    } else if (name == "ReactorBoostLvl") {
+        int8 num = Dev::GetOffsetInt8(State, offset);
+        value = Round(num) + " " + tostring(ESceneVehicleVisReactorBoostLvl(num));
+    } else if (name == "ReactorBoostType") {
+        int8 num = Dev::GetOffsetInt8(State, offset);
+        value = Round(num) + " " + tostring(ESceneVehicleVisReactorBoostType(num));
+    } else if (name.EndsWith("GroundContactMaterial")) {
+        int8 num = Dev::GetOffsetInt8(State, offset);
+        value = Round(num) + " " + tostring(EPlugSurfaceMaterialId(num));
+    } else if (name.EndsWith("GroundContactEffect")) {
+        int8 num = Dev::GetOffsetInt8(State, offset);
+        value = Round(num) + " " + tostring(EPlugSurfaceGameplayId(num));
+    } else if (name.EndsWith("Falling")) {
+        int8 num = Dev::GetOffsetInt8(State, offset);
+        value = Round(num) + " " + tostring(VehicleState::FallingState(num));
+    } else {
+        switch (type) {
+            case DataType::Bool:   value = Round(    Dev::GetOffsetInt8  (State, offset) == 1); break;
+            case DataType::Int8:   value = Round(    Dev::GetOffsetInt8  (State, offset));      break;
+            case DataType::Uint8:  value = RoundUint(Dev::GetOffsetUint8 (State, offset));      break;
+            case DataType::Int16:  value = Round(    Dev::GetOffsetInt16 (State, offset));      break;
+            case DataType::Uint16: value = RoundUint(Dev::GetOffsetUint16(State, offset));      break;
+            case DataType::Int32:  value = Round(    Dev::GetOffsetInt32 (State, offset));      break;
+            case DataType::Uint32: value = RoundUint(Dev::GetOffsetUint32(State, offset));      break;
+            case DataType::Int64:  value = Round(    Dev::GetOffsetInt64 (State, offset));      break;
+            case DataType::Uint64: value = RoundUint(Dev::GetOffsetUint64(State, offset));      break;
+            case DataType::Float:  value = Round(    Dev::GetOffsetFloat (State, offset));      break;
+            case DataType::Vec2:   value = Round(    Dev::GetOffsetVec2  (State, offset));      break;
+            case DataType::Vec3:   value = Round(    Dev::GetOffsetVec3  (State, offset));      break;
+            case DataType::Vec4:   value = Round(    Dev::GetOffsetVec4  (State, offset));      break;
+            case DataType::Iso4:   value = Round(    Dev::GetOffsetIso4  (State, offset));      break;
+            default:;
+        }
     }
 
-    return { offsets.Length > 0 ? offsets : tostring(offset), IntToHex(offset), (known ? "" : YELLOW) + name, tostring(type), value };
+    return { tostring(offset), IntToHex(offset), (known ? "" : YELLOW) + name, tostring(type), value };
 }
 
 void RenderStateOffsets(CSceneVehicleVisState@ State) {
@@ -387,7 +429,7 @@ void RenderStateOffsets(CSceneVehicleVisState@ State) {
                         case DataType::Vec3:   UI::Text(Round(    Dev::GetOffsetVec3  (State, offset)));      break;
                         case DataType::Vec4:   UI::Text(Round(    Dev::GetOffsetVec4  (State, offset)));      break;
                         case DataType::Iso4:   UI::Text(Round(    Dev::GetOffsetIso4  (State, offset)));      break;
-                        default:;
+                        default:               UI::Text("Unsupported!");
                     }
                 } catch {
                     UI::Text(YELLOW + getExceptionInfo());

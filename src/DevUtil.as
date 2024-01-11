@@ -33,6 +33,7 @@ enum DataType {
     // Nat2,
     // Nat3,
     // String
+    Enum
 }
 
 string IntToHex(int i) {

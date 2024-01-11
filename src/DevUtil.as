@@ -14,6 +14,7 @@ const string WHITE  = "\\$FFF";
 const string YELLOW = "\\$FF0";
 
 enum DataType {
+    Bool,
     Int8,
     Uint8,
     Int16,

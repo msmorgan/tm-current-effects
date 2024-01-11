@@ -4,15 +4,17 @@
 #if SIG_DEVELOPER && TMNEXT
 
 bool   gameVersionValid = false;
+string offsetSearch;
 string version;
 
 // offsets for which a value is known
 const int[] knownVisOffsets = {
-    348, 352, 356, 360, 364, 368
+    348, 352, 356, 360, 364, 368, 376, 384, 388, 392, 396, 400, 404, 408, 412, 416, 544, 552, 560, 568, 580, 592, 664
 };
 
 // offsets for which a value is known, but there's uncertainty in exactly what it represents
 const int[] observedVisOffsets = {
+    124, 372, 548, 556, 564, 572, 576, 584, 588, 596
 };
 
 // game versions for which the offsets in this file are valid
@@ -210,9 +212,33 @@ void RenderVisApiValues(CSceneVehicleVis@ Vis) {
 }
 
 void RenderVisOffsetValues(CSceneVehicleVis@ Vis) {
+    UI::TextWrapped("Variables marked " + YELLOW + "yellow\\$G have been observed but are uncertain.");
+
     string[][] values;
-    values.InsertLast(VisOffsetValue(Vis, 348, "Position", DataType::Vec3));
-    values.InsertLast(VisOffsetValue(Vis, 360, "WorldVel", DataType::Vec3));
+    values.InsertLast(VisOffsetValue(Vis, 348, "Position",          DataType::Vec3));
+    values.InsertLast(VisOffsetValue(Vis, 360, "WorldVel",          DataType::Vec3));
+    values.InsertLast(VisOffsetValue(Vis, 376, "IsWheelsBurning",   DataType::Bool));
+    values.InsertLast(VisOffsetValue(Vis, 384, "FLIcing01",         DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 388, "FRIcing01",         DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 392, "RRIcing01",         DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 396, "RLIcing01",         DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 400, "FLSlipCoef",        DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 404, "FRSlipCoef",        DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 408, "RRSlipCoef",        DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 412, "RLSlipCoef",        DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 416, "InputGasPedal",     DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 544, "InputIsBraking",    DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 548, "BrakingCoefStrong", DataType::Float, false));
+    values.InsertLast(VisOffsetValue(Vis, 552, "HasReactor",        DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 556, "Reactor???",        DataType::Float, false));
+    values.InsertLast(VisOffsetValue(Vis, 560, "HasYellowReactor",  DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 564, "YellowReactor???",  DataType::Float, false));
+    values.InsertLast(VisOffsetValue(Vis, 568, "HasRedReactor",     DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 572, "RedReactor???",     DataType::Float, false));
+    values.InsertLast(VisOffsetValue(Vis, 580, "Turbo",             DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 592, "InputIsBraking",    DataType::Float));
+    values.InsertLast(VisOffsetValue(Vis, 596, "BrakingCoefWeak",   DataType::Float, false));
+    values.InsertLast(VisOffsetValue(Vis, 664, "SpoilerOpenNormed", DataType::Float));
 
     if (UI::BeginTable("##vis-offset-value-table", 5, UI::TableFlags::RowBg | UI::TableFlags::ScrollY)) {
         UI::PushStyleColor(UI::Col::TableRowBgAlt, vec4(0.0f, 0.0f, 0.0f, 0.5f));
@@ -242,33 +268,35 @@ void RenderVisOffsetValues(CSceneVehicleVis@ Vis) {
     }
 }
 
-string[] VisOffsetValue(CSceneVehicleVis@ Vis, int offset, const string &in name, DataType type) {
+string[] VisOffsetValue(CSceneVehicleVis@ Vis, int offset, const string &in name, DataType type, bool known = true) {
     string value;
 
     switch (type) {
-        case DataType::Int8:   value = Round(    Dev::GetOffsetInt8  (Vis, offset)); break;
-        case DataType::Uint8:  value = RoundUint(Dev::GetOffsetUint8 (Vis, offset)); break;
-        case DataType::Int16:  value = Round(    Dev::GetOffsetInt16 (Vis, offset)); break;
-        case DataType::Uint16: value = RoundUint(Dev::GetOffsetUint16(Vis, offset)); break;
-        case DataType::Int32:  value = Round(    Dev::GetOffsetInt32 (Vis, offset)); break;
-        case DataType::Uint32: value = RoundUint(Dev::GetOffsetUint32(Vis, offset)); break;
-        case DataType::Int64:  value = Round(    Dev::GetOffsetInt64 (Vis, offset)); break;
-        case DataType::Uint64: value = RoundUint(Dev::GetOffsetUint64(Vis, offset)); break;
-        case DataType::Float:  value = Round(    Dev::GetOffsetFloat (Vis, offset)); break;
-        case DataType::Vec2:   value = Round(    Dev::GetOffsetVec2  (Vis, offset)); break;
-        case DataType::Vec3:   value = Round(    Dev::GetOffsetVec3  (Vis, offset)); break;
-        case DataType::Vec4:   value = Round(    Dev::GetOffsetVec4  (Vis, offset)); break;
-        case DataType::Iso4:   value = Round(    Dev::GetOffsetIso4  (Vis, offset)); break;
+        case DataType::Bool:   value = Round(    Dev::GetOffsetInt8  (Vis, offset) == 1); break;
+        case DataType::Int8:   value = Round(    Dev::GetOffsetInt8  (Vis, offset));      break;
+        case DataType::Uint8:  value = RoundUint(Dev::GetOffsetUint8 (Vis, offset));      break;
+        case DataType::Int16:  value = Round(    Dev::GetOffsetInt16 (Vis, offset));      break;
+        case DataType::Uint16: value = RoundUint(Dev::GetOffsetUint16(Vis, offset));      break;
+        case DataType::Int32:  value = Round(    Dev::GetOffsetInt32 (Vis, offset));      break;
+        case DataType::Uint32: value = RoundUint(Dev::GetOffsetUint32(Vis, offset));      break;
+        case DataType::Int64:  value = Round(    Dev::GetOffsetInt64 (Vis, offset));      break;
+        case DataType::Uint64: value = RoundUint(Dev::GetOffsetUint64(Vis, offset));      break;
+        case DataType::Float:  value = Round(    Dev::GetOffsetFloat (Vis, offset));      break;
+        case DataType::Vec2:   value = Round(    Dev::GetOffsetVec2  (Vis, offset));      break;
+        case DataType::Vec3:   value = Round(    Dev::GetOffsetVec3  (Vis, offset));      break;
+        case DataType::Vec4:   value = Round(    Dev::GetOffsetVec4  (Vis, offset));      break;
+        case DataType::Iso4:   value = Round(    Dev::GetOffsetIso4  (Vis, offset));      break;
         default:;
     }
 
-    return { tostring(offset), IntToHex(offset), name, tostring(type), value };
+    return { tostring(offset), IntToHex(offset), (known ? "" : YELLOW) + name, tostring(type), value };
 }
 
 void RenderVisOffsets(CSceneVehicleVis@ Vis) {
     UI::TextWrapped("If you go much further than a few thousand, there is a small, but non-zero chance your game could crash.");
     UI::TextWrapped("CSceneVehicleVisState starts at offset ___ (0x___)");
     UI::TextWrapped("Offsets marked white are known, " + YELLOW + "yellow\\$G are somewhat known, and " + RED + "red\\$G are unknown.");
+    UI::TextWrapped("Values marked white are 0, " + GREEN + " green\\$G are positive/true, and " + RED + "red\\$G are negative/false.");
 
     if (UI::BeginTable("##vis-offset-table", 3, UI::TableFlags::RowBg | UI::TableFlags::ScrollY)) {
         UI::PushStyleColor(UI::Col::TableRowBgAlt, vec4(0.0f, 0.0f, 0.0f, 0.5f));
@@ -278,41 +306,42 @@ void RenderVisOffsets(CSceneVehicleVis@ Vis) {
         UI::TableSetupColumn("Offset (hex)", UI::TableColumnFlags::WidthFixed, 120.0f);
         UI::TableSetupColumn("Value (" + tostring(S_OffsetType) + ")");
         UI::TableHeadersRow();
-    }
 
-    UI::ListClipper clipper((S_OffsetMax / S_OffsetSkip) + 1);
-    while (clipper.Step()) {
-        for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++) {
-            int offset = i * S_OffsetSkip;
-            string color = knownVisOffsets.Find(offset) > -1 ? "" : (observedVisOffsets.Find(offset) > -1) ? YELLOW : RED;
+        UI::ListClipper clipper((S_OffsetMax / S_OffsetSkip) + 1);
+        while (clipper.Step()) {
+            for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++) {
+                int offset = i * S_OffsetSkip;
+                string color = knownVisOffsets.Find(offset) > -1 ? "" : (observedVisOffsets.Find(offset) > -1) ? YELLOW : RED;
 
-            UI::TableNextRow();
-            UI::TableNextColumn();
-            UI::Text(color + offset);
+                UI::TableNextRow();
+                UI::TableNextColumn();
+                UI::Text(color + offset);
 
-            UI::TableNextColumn();
-            UI::Text(color + IntToHex(offset));
+                UI::TableNextColumn();
+                UI::Text(color + IntToHex(offset));
 
-            UI::TableNextColumn();
-            try {
-                switch (S_OffsetType) {
-                    case DataType::Int8:   UI::Text(Round(    Dev::GetOffsetInt8  (Vis, offset))); break;
-                    case DataType::Uint8:  UI::Text(RoundUint(Dev::GetOffsetUint8 (Vis, offset))); break;
-                    case DataType::Int16:  UI::Text(Round(    Dev::GetOffsetInt16 (Vis, offset))); break;
-                    case DataType::Uint16: UI::Text(RoundUint(Dev::GetOffsetUint16(Vis, offset))); break;
-                    case DataType::Int32:  UI::Text(Round(    Dev::GetOffsetInt32 (Vis, offset))); break;
-                    case DataType::Uint32: UI::Text(RoundUint(Dev::GetOffsetUint32(Vis, offset))); break;
-                    case DataType::Int64:  UI::Text(Round(    Dev::GetOffsetInt64 (Vis, offset))); break;
-                    case DataType::Uint64: UI::Text(RoundUint(Dev::GetOffsetUint64(Vis, offset))); break;
-                    case DataType::Float:  UI::Text(Round(    Dev::GetOffsetFloat (Vis, offset))); break;
-                    case DataType::Vec2:   UI::Text(Round(    Dev::GetOffsetVec2  (Vis, offset))); break;
-                    case DataType::Vec3:   UI::Text(Round(    Dev::GetOffsetVec3  (Vis, offset))); break;
-                    case DataType::Vec4:   UI::Text(Round(    Dev::GetOffsetVec4  (Vis, offset))); break;
-                    case DataType::Iso4:   UI::Text(Round(    Dev::GetOffsetIso4  (Vis, offset))); break;
-                    default:;
+                UI::TableNextColumn();
+                try {
+                    switch (S_OffsetType) {
+                        case DataType::Bool:   UI::Text(Round(    Dev::GetOffsetInt8  (Vis, offset) == 1)); break;
+                        case DataType::Int8:   UI::Text(Round(    Dev::GetOffsetInt8  (Vis, offset)));      break;
+                        case DataType::Uint8:  UI::Text(RoundUint(Dev::GetOffsetUint8 (Vis, offset)));      break;
+                        case DataType::Int16:  UI::Text(Round(    Dev::GetOffsetInt16 (Vis, offset)));      break;
+                        case DataType::Uint16: UI::Text(RoundUint(Dev::GetOffsetUint16(Vis, offset)));      break;
+                        case DataType::Int32:  UI::Text(Round(    Dev::GetOffsetInt32 (Vis, offset)));      break;
+                        case DataType::Uint32: UI::Text(RoundUint(Dev::GetOffsetUint32(Vis, offset)));      break;
+                        case DataType::Int64:  UI::Text(Round(    Dev::GetOffsetInt64 (Vis, offset)));      break;
+                        case DataType::Uint64: UI::Text(RoundUint(Dev::GetOffsetUint64(Vis, offset)));      break;
+                        case DataType::Float:  UI::Text(Round(    Dev::GetOffsetFloat (Vis, offset)));      break;
+                        case DataType::Vec2:   UI::Text(Round(    Dev::GetOffsetVec2  (Vis, offset)));      break;
+                        case DataType::Vec3:   UI::Text(Round(    Dev::GetOffsetVec3  (Vis, offset)));      break;
+                        case DataType::Vec4:   UI::Text(Round(    Dev::GetOffsetVec4  (Vis, offset)));      break;
+                        case DataType::Iso4:   UI::Text(Round(    Dev::GetOffsetIso4  (Vis, offset)));      break;
+                        default:;
+                    }
+                } catch {
+                    UI::Text(YELLOW + getExceptionInfo());
                 }
-            } catch {
-                UI::Text(YELLOW + getExceptionInfo());
             }
         }
     }

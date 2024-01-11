@@ -3,9 +3,15 @@
 
 #if SIG_DEVELOPER && TMNEXT
 
-const string GREEN = "\\$0D2";
-const string RED   = "\\$F00";
-const string WHITE = "\\$FFF";
+const string BLUE   = "\\$09D";
+const string CYAN   = "\\$2FF";
+const string GRAY   = "\\$888";
+const string GREEN  = "\\$0D2";
+const string ORANGE = "\\$F90";
+const string PURPLE = "\\$F0F";
+const string RED    = "\\$F00";
+const string WHITE  = "\\$FFF";
+const string YELLOW = "\\$FF0";
 
 string Round(bool b) {
     return (b ? GREEN : RED) + b;
@@ -20,22 +26,43 @@ string Round(float num, uint precision = S_Precision) {
 }
 
 string Round(vec3 vec, uint precision = S_Precision) {
-    return Round(vec.x, precision) + " , " + Round(vec.y, precision) + " , " + Round(vec.z, precision);
+    return Round(vec.x, precision) + "\\$G , " + Round(vec.y, precision) + "\\$G , " + Round(vec.z, precision);
 }
 
 string Round(iso4 iso, uint precision = S_Precision) {
     string ret;
 
-    ret += Round(iso.tx, precision) + " , " + Round(iso.ty, precision) + " , " + Round(iso.tz, precision) + "\n";
-    ret += Round(iso.xx, precision) + " , " + Round(iso.xy, precision) + " , " + Round(iso.xz, precision) + "\n";
-    ret += Round(iso.yx, precision) + " , " + Round(iso.yy, precision) + " , " + Round(iso.yz, precision) + "\n";
-    ret += Round(iso.zx, precision) + " , " + Round(iso.zy, precision) + " , " + Round(iso.zz, precision);
+    ret += Round(iso.tx, precision) + "\\$G , " + Round(iso.ty, precision) + "\\$G , " + Round(iso.tz, precision) + "\n";
+    ret += Round(iso.xx, precision) + "\\$G , " + Round(iso.xy, precision) + "\\$G , " + Round(iso.xz, precision) + "\n";
+    ret += Round(iso.yx, precision) + "\\$G , " + Round(iso.yy, precision) + "\\$G , " + Round(iso.yz, precision) + "\n";
+    ret += Round(iso.zx, precision) + "\\$G , " + Round(iso.zy, precision) + "\\$G , " + Round(iso.zz, precision);
 
     return ret;
 }
 
-string RoundUint(uint num) {
+string RoundUint(uint num) {  // separate function else a uint gets converted to an int, losing data
     return (num == 0 ? WHITE : GREEN) + num;
+}
+
+enum DataType {
+    Int8,
+    Uint8,
+    Int16,
+    Uint16,
+    Int32,
+    Uint32,
+    Int64,
+    Uint64,
+    Float,
+    // Double,
+    // Vec2,
+    Vec3,
+    // Vec4,
+    // Iso3,
+    Iso4,
+    // Nat2,
+    // Nat3,
+    // String
 }
 
 #endif

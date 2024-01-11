@@ -189,3 +189,13 @@ void CacheLocalLogin() {
             break;
     }
 }
+
+namespace CurrentEffects
+{
+    bool NoBrakes { get { return noBrakes > 0; } }
+    bool NoSteer { get { return noSteer > 0; } }
+    bool NoEngine { get { return noEngine > 0; } }
+    bool NoGrip { get { return noGrip > 0; } }
+    bool ForcedAccel { get { return forced > 0; } }
+    bool SnowCar { get { return snow > 0; } }
+}

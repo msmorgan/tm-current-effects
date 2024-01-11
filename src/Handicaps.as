@@ -18,11 +18,27 @@ int GetHandicapSum(CSceneVehicleVisState@ state) {
         handicapOffset = type.GetMember("TurboTime").Offset + 12;
     }
 
-    return Dev::GetOffsetInt32(state, handicapOffset);
+    return Dev::GetOffsetInt32(state, handicapOffset) >> 8;
 
 #elif MP4
     return int(state.ActiveEffects);
 #endif
+}
+
+namespace HandicapMask {
+// #if TMNEXT
+//     const int NoEngine    = 0x100;
+//     const int ForcedAccel = 0x200;
+//     const int NoBrakes    = 0x400;
+//     const int NoSteer     = 0x800;
+//     const int NoGrip      = 0x1000;
+// #elif MP4
+    const int NoEngine    = 0x1;
+    const int ForcedAccel = 0x2;
+    const int NoBrakes    = 0x4;
+    const int NoSteer     = 0x8;
+    const int NoGrip      = 0x10;
+// #endif
 }
 
 void SetHandicaps(int sum) {

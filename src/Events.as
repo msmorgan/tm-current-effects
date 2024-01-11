@@ -57,9 +57,12 @@ void ToggleIntercept() {
         ResetIntercept();
 }
 
-bool _Intercept(CMwStack &in stack, CMwNod@ nod) {
+bool _Intercept(CMwStack &in stack) {
     try {
-        CaptureEvent(stack.CurrentWString(1), stack.CurrentBufferWString());
+        CaptureEvent(
+            cast<CGameUILayer@>(stack.CurrentNod(2)),
+            stack.CurrentWString(1),
+             stack.CurrentBufferWString());
     } catch {
         warn("Exception in Intercept: " + getExceptionInfo());
     }
@@ -67,7 +70,7 @@ bool _Intercept(CMwStack &in stack, CMwNod@ nod) {
     return true;
 }
 
-void CaptureEvent(const string &in type, MwFastBuffer<wstring> &in data) {
+void CaptureEvent(CGameUILayer@ layer, const string &in type, MwFastBuffer<wstring> &in data) {
     if (type == "BlockHelper_Event_GameplaySpecial") {  // only works while playing
         if (data[0].Contains("Reset"))
             ResetEventEffects();

@@ -7,3 +7,4 @@ siteid = 382
 
 [script]
 dependencies = [ "VehicleState" ]
+exports = [ "src/Exports.as" ]
